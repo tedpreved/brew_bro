@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       routerConfig: AppRouter.router,
       title: 'Flutter GoRouter Example',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
     );
   }
