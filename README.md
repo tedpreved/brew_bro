@@ -3,6 +3,8 @@
 
 This is a Flutter project designed to show my view of creating app according to Barkibu test exersize requirements.
 
+!!!Pls test app on Android or iOS simulator
+
 <img src="https://github.com/tedpreved/test_exercise/assets/6840067/e0860641-76e8-40fc-b5a1-4a9ea02617ff" alt="Alt text" width="200"/>
 <img src="https://github.com/tedpreved/test_exercise/assets/6840067/28b75295-a441-4d68-afd2-dcae726ab783" alt="Alt text" width="200"/>
 <img src="https://github.com/tedpreved/test_exercise/assets/6840067/4a17e20b-55ab-49bd-ae87-3b4241efede2" alt="Alt text" width="200"/>
@@ -35,9 +37,31 @@ To launch the app, follow these steps:
    ```
 
 4. **Run the app**:
+
+   Debug mode
    ```bash
-   flutter run
+    flutter run --debug
+   ```
+   Release mode
+    ```bash
+    flutter run --release
    ```
 
-## Local server 
+## Local server setup
 You can find the back end for mobile application by vising this [link](https://github.com/tedpreved/fruityvice_proxy#fruityvice-proxy-server) 
+
+## Troubleshooting
+If you stuck on this screen... 
+
+<img src="https://github.com/tedpreved/test_exercise/assets/6840067/4a17e20b-55ab-49bd-ae87-3b4241efede2" alt="Alt text" width="200"/>
+
+...it is 99% probability that is something wrong with app connection to the back end.
+In that case you can check next things:
+
+   - Visit http://localhost:3000/fruits at web browser on your PC or http://127.0.0.1:3000/fruits at iOS simulator browser or http://10.0.2.2:3000/fruits at Android simulator.
+     
+   - If you fire you back end on a custom ip adress and port you can modify `androidBaseUrl` or `iosBaseUrl`, this constants located at "/lib/constants.dart" file.
+   
+If you have any problem or ideas you can contact my by email: `teodor.mytsyk@gmail.com`.
+   
+
