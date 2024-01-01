@@ -7,8 +7,10 @@ import 'package:test_exercise/presentation/bloc/list/fruit_list_event.dart';
 import 'package:test_exercise/presentation/bloc/list/fruit_list_state.dart';
 
 class FruitsListPage extends StatelessWidget {
-  const FruitsListPage({super.key, required this.title});
+  FruitsListPage({super.key, required this.title});
+
   final String title;
+  final _fruitBloc = GetIt.instance<FruitListBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class FruitsListPage extends StatelessWidget {
         title: Text(title),
       ),
       body: BlocBuilder<FruitListBloc, FruitListState>(
-        bloc: GetIt.instance<FruitListBloc>()..add(LoadFruitList()),
+        bloc: _fruitBloc..add(LoadFruitList()),
         builder: (context, state) {
           if (state is FruitListLoadingState) {
             return const Center(
@@ -39,7 +41,22 @@ class FruitsListPage extends StatelessWidget {
             );
           } else if (state is FruitListLoadingErrorState) {
             return Center(
-              child: Text(state.message),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    state.message,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      _fruitBloc.add(LoadFruitList());
+                    },
+                    child: const Text('Retry'),
+                  ),
+                ],
+              ),
             );
           } else {
             return const Center(

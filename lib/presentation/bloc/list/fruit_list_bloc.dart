@@ -13,12 +13,14 @@ class FruitListBloc extends Bloc<FruitListEvent, FruitListState> {
   }
 
   Future<void> _loadFruitList(
-      LoadFruitList event, Emitter<FruitListState> emit,) async {
+    LoadFruitList event,
+    Emitter<FruitListState> emit,
+  ) async {
     emit(FruitListLoadingState());
     final failureOrSuccess = await getFruitUseCase?.call(NoParams());
     failureOrSuccess?.fold(
-      (failure) =>
-          emit(FruitListLoadingErrorState(message: failure.errorMessage)),
+      (failure) => emit(const FruitListLoadingErrorState(
+          message: "Holly guacamole! Something went wrong!\nPls try again.")),
       (success) => emit(FruitListLoadedState(fruitList: success)),
     );
   }

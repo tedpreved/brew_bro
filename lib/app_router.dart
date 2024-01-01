@@ -9,7 +9,7 @@ class AppRouter {
       GoRoute(
         path: '/',
         builder: (BuildContext _, GoRouterState __) =>
-            const FruitsListPage(title: "Fruit List"),
+            FruitsListPage(title: "Fruit List"),
       ),
       GoRoute(
         path: '/details',
