@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test_exercise/domain/common/use_case.dart';
 import 'package:test_exercise/domain/usecases/load_fruit_use_case.dart';
 import 'package:test_exercise/presentation/bloc/list/fruit_list_state.dart';
 
@@ -12,9 +13,9 @@ class FruitListBloc extends Bloc<FruitListEvent, FruitListState> {
   }
 
   Future<void> _loadFruitList(
-      LoadFruitList event, Emitter<FruitListState> emit) async {
+      LoadFruitList event, Emitter<FruitListState> emit,) async {
     emit(FruitListLoadingState());
-    final failureOrSuccess = await getFruitUseCase?.call(null);
+    final failureOrSuccess = await getFruitUseCase?.call(NoParams());
     failureOrSuccess?.fold(
       (failure) =>
           emit(FruitListLoadingErrorState(message: failure.errorMessage)),

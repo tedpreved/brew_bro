@@ -10,7 +10,7 @@ class GetFruitListUseCase extends UseCase<List<FruitItem>, NoParams> {
   GetFruitListUseCase(this.repository);
 
   @override
-  Future<Either<Failure, List<FruitItem>>> call(void params) async {
+  Future<Either<Failure, List<FruitItem>>> call(NoParams params) async {
     return await repository.loadFruitList();
   }
 }
