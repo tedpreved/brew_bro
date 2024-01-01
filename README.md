@@ -1,7 +1,11 @@
 
 # Test exercise for Barkibu
 
-This is a Flutter project designed to show my view of creating app according to Barkibu test exersize requirements 
+This is a Flutter project designed to show my view of creating app according to Barkibu test exersize requirements.
+
+<img src="https://github.com/tedpreved/test_exercise/assets/6840067/e0860641-76e8-40fc-b5a1-4a9ea02617ff" alt="Alt text" width="200"/>
+<img src="https://github.com/tedpreved/test_exercise/assets/6840067/28b75295-a441-4d68-afd2-dcae726ab783" alt="Alt text" width="200"/>
+<img src="https://github.com/tedpreved/test_exercise/assets/6840067/4a17e20b-55ab-49bd-ae87-3b4241efede2" alt="Alt text" width="200"/>
 
 ## Prerequisites
 
