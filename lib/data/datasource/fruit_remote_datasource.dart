@@ -16,7 +16,8 @@ class FruitRemoteDataSourceImpl implements FruitRemoteDataSource {
     try {
       final response = await httpClient.get('fruits');
       if (response.statusCode == 200) {
-        final fruits = List<FruitItem>.from(response.data.map((fruit) => FruitItem.fromJson(fruit)));
+        final fruits = List<FruitItem>.from(
+            response.data.map((fruit) => FruitItem.fromJson(fruit)));
         return fruits;
       } else {
         throw Exception();

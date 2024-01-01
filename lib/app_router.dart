@@ -8,7 +8,8 @@ class AppRouter {
     routes: [
       GoRoute(
         path: '/',
-        builder: (BuildContext _, GoRouterState __) => const FruitsListPage(title: "Fruit List"),
+        builder: (BuildContext _, GoRouterState __) =>
+            const FruitsListPage(title: "Fruit List"),
       ),
       GoRoute(
         path: '/details',
@@ -18,9 +19,11 @@ class AppRouter {
               key: state.pageKey,
               fruitItem: state.extra,
             ),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
               return FadeTransition(
-                opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+                opacity:
+                    CurveTween(curve: Curves.easeInOutCirc).animate(animation),
                 child: child,
               );
             },
