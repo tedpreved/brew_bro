@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
-import 'package:test_exercise/domain/repositories/fruit_repositorie_impl.dart';
+import 'package:test_exercise/data/repositories/fruit_repository_impl.dart';
 import 'package:test_exercise/presentation/bloc/list/fruit_list_bloc.dart';
 import 'package:test_exercise/utils.dart';
 
-import 'data/datasource/fruit_remote_datasource.dart';
+import 'data/datasource/fruit_remote_datasource_impl.dart';
+import 'domain/datasource/fruit_remote_datasource.dart';
 import 'domain/repositories/fruit_repository.dart';
 import 'domain/usecases/load_fruit_use_case.dart';
 

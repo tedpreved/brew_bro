@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:test_exercise/data/model/fruit_item.dart';
+import 'package:test_exercise/core/model/fruit_item.dart';
 
 abstract class FruitListState extends Equatable {
   const FruitListState();

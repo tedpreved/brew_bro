@@ -23,16 +23,6 @@ class Nutrition {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'calories': calories,
-      'fat': fat,
-      'sugar': sugar,
-      'carbohydrates': carbohydrates,
-      'protein': protein,
-    };
-  }
-
   @override
   String toString() {
     return 'Nutrition{calories: $calories, fat: $fat, sugar: $sugar, carbohydrates: $carbohydrates, protein: $protein}';

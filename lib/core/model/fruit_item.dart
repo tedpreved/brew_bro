@@ -28,17 +28,6 @@ class FruitItem {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'name': name,
-      'id': id,
-      'family': family,
-      'order': order,
-      'genus': genus,
-      'nutritions': nutritions.toJson(),
-    };
-  }
-
   @override
   String toString() {
     return 'FruitItem{name: $name, id: $id, family: $family, order: $order, genus: $genus, nutritions: $nutritions}';

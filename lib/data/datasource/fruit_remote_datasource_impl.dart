@@ -1,10 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:test_exercise/data/model/fruit_item.dart';
-
-//TODO: add separate exceptions for parsing data and an error from the server
-abstract class FruitRemoteDataSource {
-  Future<List<FruitItem>> loadFruits();
-}
+import 'package:test_exercise/core/model/fruit_item.dart';
+import 'package:test_exercise/domain/datasource/fruit_remote_datasource.dart';
 
 class FruitRemoteDataSourceImpl implements FruitRemoteDataSource {
   final Dio httpClient;

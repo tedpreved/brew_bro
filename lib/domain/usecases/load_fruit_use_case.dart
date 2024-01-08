@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:test_exercise/data/model/fruit_item.dart';
+import 'package:test_exercise/core/model/fruit_item.dart';
 import 'package:test_exercise/domain/common/use_case.dart';
 import 'package:test_exercise/domain/repositories/fruit_repository.dart';
 import 'package:test_exercise/error/failure.dart';

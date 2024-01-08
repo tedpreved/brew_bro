@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:test_exercise/data/model/fruit_item.dart';
+import 'package:test_exercise/core/model/fruit_item.dart';
 
 class FruitDetailsScreen extends StatelessWidget {
   final Object? fruitItem;
