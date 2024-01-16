@@ -19,8 +19,8 @@ class BeerListBloc extends Bloc<BeerListEvent, BeerListState> {
     emit(BeerListLoadingState());
     final failureOrSuccess = await getBeerUseCase?.call(NoParams());
     failureOrSuccess?.fold(
-      (failure) =>
-          emit(const BeerListLoadingErrorState(message: "Holly guacamole! Something went wrong!\nPls try again.")),
+      (failure) => emit(const BeerListLoadingErrorState(
+          message: "Holly guacamole! Something went wrong!\nPls try again.")),
       (success) => emit(BeerListLoadedState(beerList: success)),
     );
   }

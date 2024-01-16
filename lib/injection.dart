@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
@@ -67,4 +66,3 @@ Future<void> init() async {
     },
   );
 }
-

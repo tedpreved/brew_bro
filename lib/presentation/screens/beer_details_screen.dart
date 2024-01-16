@@ -75,7 +75,6 @@ class BeerDetailsHolder extends StatelessWidget {
         const SizedBox(height: 8),
         Text("Method: ${beerItem.method?.mashTemp ?? ""}"),
         const SizedBox(height: 8),
-
       ]),
     );
   }

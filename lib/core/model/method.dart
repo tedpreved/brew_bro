@@ -8,8 +8,11 @@ class Method {
   Method({this.mashTemp, this.fermentation, this.twist});
 
   factory Method.fromJson(Map<String, dynamic> json) {
-    var mashTempList =
-        json['mash_temp'] != null ? (json['mash_temp'] as List).map((item) => MashTemp.fromJson(item)).toList() : null;
+    var mashTempList = json['mash_temp'] != null
+        ? (json['mash_temp'] as List)
+            .map((item) => MashTemp.fromJson(item))
+            .toList()
+        : null;
 
     return Method(
       mashTemp: mashTempList,
