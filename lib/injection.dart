@@ -1,36 +1,36 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
-import 'package:test_exercise/data/repositories/fruit_repository_impl.dart';
-import 'package:test_exercise/presentation/bloc/list/fruit_list_bloc.dart';
-import 'package:test_exercise/utils.dart';
+import 'package:test_exercise/data/repositories/beer_repository_impl.dart';
+import 'package:test_exercise/presentation/bloc/list/beer_list_bloc.dart';
 
-import 'data/datasource/fruit_remote_datasource_impl.dart';
-import 'domain/datasource/fruit_remote_datasource.dart';
-import 'domain/repositories/fruit_repository.dart';
-import 'domain/usecases/load_fruit_use_case.dart';
+import 'data/datasource/beer_remote_datasource_impl.dart';
+import 'domain/datasource/beer_remote_datasource.dart';
+import 'domain/repositories/beer_repository.dart';
+import 'domain/usecases/load_beer_use_case.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
   // Bloc
   sl.registerFactory(
-    () => FruitListBloc(getFruitUseCase: sl()),
+    () => BeerListBloc(getBeerUseCase: sl()),
   );
 
   // Use cases
   sl.registerLazySingleton(
-    () => GetFruitListUseCase(sl()),
+    () => GetBeerListUseCase(sl()),
   );
 
   // Repository
-  sl.registerLazySingleton<FruitRepository>(
-    () => FruitRepositoryImpl(sl()),
+  sl.registerLazySingleton<BeerRepository>(
+    () => BeerRepositoryImpl(sl()),
   );
 
   // Data sources
-  sl.registerLazySingleton<FruitRemoteDataSource>(
-    () => FruitRemoteDataSourceImpl(httpClient: sl()),
+  sl.registerLazySingleton<BeerRemoteDataSource>(
+    () => BeerRemoteDataSourceImpl(httpClient: sl()),
   );
 
   // Dio setup
@@ -38,7 +38,7 @@ Future<void> init() async {
     () {
       final client = Dio(
         BaseOptions(
-          baseUrl: getBaseUrlDependOnPlatform(),
+          baseUrl: 'https://api.punkapi.com/v2/',
           connectTimeout: const Duration(milliseconds: 5000),
           receiveTimeout: const Duration(milliseconds: 5000),
         ),
@@ -67,3 +67,4 @@ Future<void> init() async {
     },
   );
 }
+

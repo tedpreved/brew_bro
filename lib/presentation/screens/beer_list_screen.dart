@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
-import 'package:test_exercise/presentation/bloc/list/fruit_list_bloc.dart';
-import 'package:test_exercise/presentation/bloc/list/fruit_list_event.dart';
-import 'package:test_exercise/presentation/bloc/list/fruit_list_state.dart';
+import 'package:test_exercise/presentation/bloc/list/beer_list_bloc.dart';
+import 'package:test_exercise/presentation/bloc/list/beer_list_event.dart';
+import 'package:test_exercise/presentation/bloc/list/beer_list_state.dart';
 
-class FruitsListPage extends StatelessWidget {
-  FruitsListPage({super.key, required this.title});
+class BeerListPage extends StatelessWidget {
+  BeerListPage({super.key, required this.title});
 
   final String title;
-  final _fruitBloc = GetIt.instance<FruitListBloc>();
+  final _beerBloc = GetIt.instance<BeerListBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -19,27 +19,27 @@ class FruitsListPage extends StatelessWidget {
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(title),
       ),
-      body: BlocBuilder<FruitListBloc, FruitListState>(
-        bloc: _fruitBloc..add(LoadFruitList()),
+      body: BlocBuilder<BeerListBloc, BeerListState>(
+        bloc: _beerBloc..add(LoadBeerList()),
         builder: (context, state) {
-          if (state is FruitListLoadingState) {
+          if (state is BeerListLoadingState) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (state is FruitListLoadedState) {
+          } else if (state is BeerListLoadedState) {
             return ListView.builder(
-              itemCount: state.fruitList.length,
+              itemCount: state.beerList.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(state.fruitList[index].name),
-                  subtitle: Text(state.fruitList[index].family.toString()),
+                  title: Text(state.beerList[index].name),
+                  subtitle: Text(state.beerList[index].description),
                   onTap: () {
-                    context.push('/details/', extra: state.fruitList[index]);
+                    context.push('/details/', extra: state.beerList[index]);
                   },
                 );
               },
             );
-          } else if (state is FruitListLoadingErrorState) {
+          } else if (state is BeerListLoadingErrorState) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -51,7 +51,7 @@ class FruitsListPage extends StatelessWidget {
                   const SizedBox(height: 20),
                   ElevatedButton(
                     onPressed: () {
-                      _fruitBloc.add(LoadFruitList());
+                      _beerBloc.add(LoadBeerList());
                     },
                     child: const Text('Retry'),
                   ),
