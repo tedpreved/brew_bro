@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:test_exercise/presentation/screens/beer_details_screen.dart';
-import 'package:test_exercise/presentation/screens/beer_list_screen.dart';
+import 'package:test_exercise/presentation/screens/beer_list/beer_list_screen.dart';
 
 import 'core/model/beer_item.dart';
 
@@ -11,7 +11,7 @@ class AppRouter {
       GoRoute(
         path: '/',
         builder: (BuildContext _, GoRouterState __) =>
-            BeerListPage(title: "Fruit List"),
+            BeerListPage(title: "Beer List"),
       ),
       GoRoute(
         path: '/details',

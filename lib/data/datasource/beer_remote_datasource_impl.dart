@@ -12,9 +12,9 @@ class BeerRemoteDataSourceImpl implements BeerRemoteDataSource {
     try {
       final response = await httpClient.get('beers');
       if (response.statusCode == 200) {
-        final fruits = List<BeerItem>.from(
+        final beerList = List<BeerItem>.from(
             response.data.map((fruit) => BeerItem.fromJson(fruit)));
-        return fruits;
+        return beerList;
       } else {
         throw Exception();
       }

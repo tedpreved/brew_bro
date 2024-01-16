@@ -14,7 +14,7 @@ class BeerDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Fruit Details'),
+          title: const Text('Beer Details'),
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
