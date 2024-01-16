@@ -93,24 +93,24 @@ class BeerListItemWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Image.network(
-                beerItem.imageUrl,
-                width: 75,
-                height: 75,
-              )
-            ),
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Image.network(
+                  beerItem.imageUrl,
+                  width: 75,
+                  height: 75,
+                )),
             const SizedBox(width: 8),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(beerItem.name, style: Theme.of(context).textTheme.titleMedium),
+                  Text(beerItem.name,
+                      style: Theme.of(context).textTheme.titleMedium),
                   Text(beerItem.tagline),
                 ],
               ),
