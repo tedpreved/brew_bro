@@ -97,6 +97,7 @@ class BeerListItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("URI: ${beerItem.imageUrl}");
     return Card(
         clipBehavior: Clip.antiAlias,
         color: Theme.of(context).colorScheme.surfaceVariant,
@@ -110,13 +111,17 @@ class BeerListItemWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Image.network(beerItem.imageUrl, width: 75, height: 75,
-                    loadingBuilder: (BuildContext context, Widget child,
-                        ImageChunkEvent? loadingProgress) {
+                Image.network(Uri.parse(beerItem.imageUrl ?? "").toString(),
+                    width: 75,
+                    height: 75, loadingBuilder: (BuildContext context,
+                        Widget child, ImageChunkEvent? loadingProgress) {
                   if (loadingProgress == null) return child;
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
+                }, errorBuilder: (BuildContext context, Object exception,
+                        StackTrace? stackTrace) {
+                  return const Icon(Icons.error);
                 }),
                 const SizedBox(width: 8),
                 Expanded(
@@ -124,9 +129,9 @@ class BeerListItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
-                      Text(beerItem.name,
+                      Text(beerItem.name ?? "",
                           style: Theme.of(context).textTheme.titleMedium),
-                      Text(beerItem.tagline),
+                      Text(beerItem.tagline ?? ""),
                       Text("ibu: ${beerItem.ibu} abv: ${beerItem.abv}"),
                     ],
                   ),

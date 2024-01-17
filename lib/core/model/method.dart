@@ -1,28 +1,18 @@
 import 'package:test_exercise/core/model/mash_temp.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
-class Method {
-  final List<MashTemp>? mashTemp;
-  final Map<String, dynamic>? fermentation;
-  final String? twist;
+part 'method.freezed.dart';
 
-  Method({this.mashTemp, this.fermentation, this.twist});
+part 'method.g.dart';
 
-  factory Method.fromJson(Map<String, dynamic> json) {
-    var mashTempList = json['mash_temp'] != null
-        ? (json['mash_temp'] as List)
-            .map((item) => MashTemp.fromJson(item))
-            .toList()
-        : null;
+@freezed
+class Method with _$Method {
+  const factory Method({
+    required List<MashTemp>? mashTemp,
+    required Map<String, dynamic>? fermentation,
+    required String? twist,
+  }) = _Method;
 
-    return Method(
-      mashTemp: mashTempList,
-      fermentation: json['fermentation'] as Map<String, dynamic>?,
-      twist: json['twist'],
-    );
-  }
-
-  @override
-  String toString() {
-    return 'Method{mashTemp: $mashTemp, fermentation: $fermentation, twist: $twist}';
-  }
+  factory Method.fromJson(Map<String, dynamic> json) => _$MethodFromJson(json);
 }

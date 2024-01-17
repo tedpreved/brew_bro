@@ -69,7 +69,7 @@ class BeerDetailsHolder extends StatelessWidget {
         const SizedBox(height: 8),
         Text("Attenuation level: ${beerItem.attenuationLevel}"),
         const SizedBox(height: 8),
-        Text("Volume: ${beerItem.volume?.value ?? ""}"),
+        Text("Volume: ${beerItem.beerVolume?.value ?? ""}"),
         const SizedBox(height: 8),
         Text("Boil volume: ${beerItem.boilVolume?.value ?? ""}"),
         const SizedBox(height: 8),

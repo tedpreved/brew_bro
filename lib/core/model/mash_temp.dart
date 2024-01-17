@@ -1,20 +1,18 @@
-import 'package:test_exercise/core/model/volume.dart';
+import 'package:test_exercise/core/model/beer_volume.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
-class MashTemp {
-  final Volume? temp;
-  final int? duration;
+part 'mash_temp.freezed.dart';
 
-  MashTemp({this.temp, this.duration});
+part 'mash_temp.g.dart';
 
-  factory MashTemp.fromJson(Map<String, dynamic> json) {
-    return MashTemp(
-      temp: json['temp'] != null ? Volume.fromJson(json['temp']) : null,
-      duration: json['duration'],
-    );
-  }
+@freezed
+class MashTemp with _$MashTemp {
+  const factory MashTemp({
+    @JsonKey(name: 'temp') required BeerVolume? temperature,
+    required int? duration,
+  }) = _MashTemp;
 
-  @override
-  String toString() {
-    return 'MashTemp{temp: $temp, duration: $duration}';
-  }
+  factory MashTemp.fromJson(Map<String, dynamic> json) =>
+      _$MashTempFromJson(json);
 }
