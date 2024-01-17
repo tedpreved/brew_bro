@@ -1,4 +1,4 @@
-package com.example.test_exercise
+package xyz.brewdoglover
 
 import io.flutter.embedding.android.FlutterActivity
 

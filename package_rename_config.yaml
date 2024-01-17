@@ -1,0 +1,10 @@
+package_rename_config:
+  android:
+    app_name: Brew Bro
+    package_name: xyz.brewbro
+
+  ios:
+    app_name: Brew Bro
+    bundle_name: xyz.brewbro
+    override_old_package: xyz.brewbro
+    package_name: xyz.brewbro
