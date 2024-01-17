@@ -23,4 +23,17 @@ class BeerRepositoryImpl implements BeerRepository {
       return Left(DefaultServerError());
     }
   }
+
+  @override
+  Future<Either<Failure, BeerItem>> loadBeerDetail(int id) async {
+    try {
+      return Right(await remoteDataSource.loadBeerDetail(id));
+    } on DioException catch (error) {
+      debugPrint('DioException: ${error.toString()}');
+      return Left(DefaultServerError());
+    } catch (error) {
+      debugPrint('Error: ${error.toString()}');
+      return Left(DefaultServerError());
+    }
+  }
 }

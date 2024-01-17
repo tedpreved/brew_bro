@@ -11,3 +11,8 @@ class DefaultServerError extends Failure {
   @override
   String get errorMessage => "Server Error";
 }
+
+class ParseError extends Failure {
+  @override
+  String get errorMessage => "Parse Error";
+}
