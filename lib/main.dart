@@ -4,10 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_exercise/constants.dart';
 
 import 'app_router.dart';
-import 'injection.dart' as di;
 
 void main() async {
-  await di.init();
   runApp(
     const ProviderScope(
       child: MyApp(),

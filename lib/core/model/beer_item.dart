@@ -5,18 +5,17 @@ import 'package:flutter/foundation.dart';
 
 part 'beer_item.freezed.dart';
 
-part c;
+part 'beer_item.g.dart';
 
 @freezed
 class BeerItem with _$BeerItem {
   const factory BeerItem({
     required int id,
     required String? name,
-    required String? tagline,f
+    required String? tagline,
     required String? firstBrewed,
     required String? description,
-    @JsonKey(name: 'image_url')
-    required String? imageUrl,
+    @JsonKey(name: 'image_url') required String? imageUrl,
     required num? abv,
     required num? ibu,
     required num? targetFg,
@@ -30,5 +29,6 @@ class BeerItem with _$BeerItem {
     required Method? method,
   }) = _BeerItem;
 
-  factory BeerItem.fromJson(Map<String, dynamic> json) => _$BeerItemFromJson(json);
+  factory BeerItem.fromJson(Map<String, dynamic> json) =>
+      _$BeerItemFromJson(json);
 }

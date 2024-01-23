@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:test_exercise/core/model/beer_item.dart';
-import 'package:test_exercise/presentation/bloc/list/beer_list_bloc.dart';
-import 'package:test_exercise/presentation/bloc/list/beer_list_event.dart';
-import 'package:test_exercise/presentation/bloc/list/beer_list_state.dart';
+import 'package:test_exercise/injection.dart';
 
 class BeerListPage extends StatelessWidget {
-  BeerListPage({super.key, required this.title});
+  const BeerListPage({super.key, required this.title});
 
   final String title;
-  final _beerBloc = GetIt.instance<BeerListBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,55 +29,50 @@ class BeerListPage extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocBuilder<BeerListBloc, BeerListState>(
-        bloc: _beerBloc..add(LoadBeerList()),
-        builder: (context, state) {
-          if (state is BeerListLoadingState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is BeerListLoadedState) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: ListView.builder(
-                itemCount: state.beerList.length,
-                itemBuilder: (context, index) {
-                  return BeerListItemWidget(
-                    beerItem: state.beerList[index],
-                    navigateToDetails: () {
-                      context.push('/details/', extra: state.beerList[index]);
-                    },
-                  );
-                },
-              ),
-            );
-          } else if (state is BeerListLoadingErrorState) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    state.message,
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      _beerBloc.add(LoadBeerList());
-                    },
-                    child: const Text('Retry'),
-                  ),
-                ],
-              ),
-            );
-          } else {
-            return const Center(
-              child: Text('Unknown state'),
-            );
-          }
-        },
-      ),
+      body: const BeerListView(),
     );
+  }
+}
+
+class BeerListView extends HookConsumerWidget {
+  const BeerListView({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final AsyncValue<List<BeerItem>> beers = ref.watch(beerListProvider);
+
+    return Center(
+        child: switch (beers) {
+      AsyncData(:final value) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: ListView.builder(
+            itemCount: value.length,
+            itemBuilder: (context, index) {
+              return BeerListItemWidget(
+                beerItem: value[index],
+                navigateToDetails: () {
+                  context.push('/details/', extra: value[index]);
+                },
+              );
+            },
+          ),
+        ),
+      AsyncError() => Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("Holy guacamole, something went wrong"),
+              ElevatedButton(
+                onPressed: () {
+                  ref.invalidate(beerListProvider);
+                },
+                child: const Text('Retry'),
+              ),
+            ],
+          ),
+        ),
+      _ => const CircularProgressIndicator(),
+    });
   }
 }
 
@@ -97,7 +88,6 @@ class BeerListItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("URI: ${beerItem.imageUrl}");
     return Card(
         clipBehavior: Clip.antiAlias,
         color: Theme.of(context).colorScheme.surfaceVariant,
@@ -108,7 +98,6 @@ class BeerListItemWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Image.network(Uri.parse(beerItem.imageUrl ?? "").toString(),
@@ -127,7 +116,6 @@ class BeerListItemWidget extends StatelessWidget {
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(beerItem.name ?? "",
                           style: Theme.of(context).textTheme.titleMedium),

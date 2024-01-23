@@ -1,68 +1,50 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:test_exercise/data/datasource/beer_remote_datasource_impl.dart';
 import 'package:test_exercise/data/repositories/beer_repository_impl.dart';
-import 'package:test_exercise/presentation/bloc/list/beer_list_bloc.dart';
+import 'package:test_exercise/domain/datasource/beer_remote_datasource.dart';
+import 'package:test_exercise/domain/repositories/beer_repository.dart';
 
-import 'data/datasource/beer_remote_datasource_impl.dart';
-import 'domain/datasource/beer_remote_datasource.dart';
-import 'domain/repositories/beer_repository.dart';
-import 'domain/usecases/load_beer_use_case.dart';
+import 'core/model/beer_item.dart';
 
-final sl = GetIt.instance;
+part 'injection.g.dart';
 
-Future<void> init() async {
-  // Bloc
-  sl.registerFactory(
-    () => BeerListBloc(getBeerUseCase: sl()),
-  );
+final dioProvider = Provider<Dio>((ref) {
+  final client = Dio(
+    BaseOptions(
+      baseUrl: 'https://api.punkapi.com/v2/',
+      connectTimeout: const Duration(milliseconds: 5000),
+      receiveTimeout: const Duration(milliseconds: 5000),
+    ),
+  )..interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          options.headers['Content-Type'] = 'application/json';
+          return handler.next(options);
+        },
+      ),
+    );
+  //TODO: make debug condition
+  if (true) {
+    client.interceptors.add(
+      LogInterceptor(
+        requestBody: true,
+        responseBody: true,
+        logPrint: (o) => debugPrint(o.toString()),
+      ),
+    );
+  }
 
-  // Use cases
-  sl.registerLazySingleton(
-    () => GetBeerListUseCase(sl()),
-  );
+  return client;
+});
 
-  // Repository
-  sl.registerLazySingleton<BeerRepository>(
-    () => BeerRepositoryImpl(sl()),
-  );
+final beerDataSourceProvider =
+    Provider<BeerRemoteDataSource>(BeerRemoteDataSourceImpl.new);
 
-  // Data sources
-  sl.registerLazySingleton<BeerRemoteDataSource>(
-    () => BeerRemoteDataSourceImpl(httpClient: sl()),
-  );
+final beerRepositoryProvider = Provider<BeerRepository>(BeerRepositoryImpl.new);
 
-  // Dio setup
-  sl.registerLazySingleton<Dio>(
-    () {
-      final client = Dio(
-        BaseOptions(
-          baseUrl: 'https://api.punkapi.com/v2/',
-          connectTimeout: const Duration(milliseconds: 5000),
-          receiveTimeout: const Duration(milliseconds: 5000),
-        ),
-      )..interceptors.add(
-          InterceptorsWrapper(
-            onRequest: (options, handler) async {
-              options.headers['Content-Type'] = 'application/json';
-              return handler.next(options);
-            },
-          ),
-        );
-
-      if (true) {
-        client.interceptors.add(
-          LogInterceptor(
-            request: true,
-            requestBody: true,
-            responseBody: true,
-            responseHeader: true,
-            logPrint: (o) => debugPrint(o.toString()),
-          ),
-        );
-      }
-
-      return client;
-    },
-  );
+@riverpod
+Future<List<BeerItem>> beerList(BeerListRef ref) {
+  return ref.read(beerRepositoryProvider).loadBeerList();
 }

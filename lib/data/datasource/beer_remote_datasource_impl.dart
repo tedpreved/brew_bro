@@ -1,41 +1,46 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:test_exercise/core/model/beer_item.dart';
 import 'package:test_exercise/domain/datasource/beer_remote_datasource.dart';
-import 'package:test_exercise/error/failure.dart';
+import 'package:test_exercise/injection.dart';
 
 class BeerRemoteDataSourceImpl implements BeerRemoteDataSource {
-  final Dio httpClient;
+  final Ref ref;
 
-  BeerRemoteDataSourceImpl({required this.httpClient});
+  BeerRemoteDataSourceImpl(this.ref);
 
   @override
-  Future<List<BeerItem>> loadBeers() async {
-    try {
-      final response = await httpClient.get('beers');
-      if (response.statusCode == 200) {
-        final beerList = List<BeerItem>.from(
-            response.data.map((fruit) => BeerItem.fromJson(fruit)));
-        return beerList;
-      } else {
-        throw ParseError();
-      }
-    } on DioException catch (e) {
-      throw Exception(e);
-    }
+  Future<List<BeerItem>> loadBeers() async => await _getList('beers');
+
+  @override
+  Future<BeerItem> loadBeerDetail(int id) async => await _getItem('beer/$id');
+
+  Future<List<BeerItem>> _getList(
+    String path, {
+    CancelToken? cancelToken,
+  }) async {
+    final response = await ref.read(dioProvider).get<List<dynamic>>(
+          path,
+          cancelToken: cancelToken,
+          // TO-DO deserialize error message
+        );
+
+    final beers = (response.data as List)
+        .map((e) => BeerItem.fromJson(e as Map<String, dynamic>))
+        .toList();
+    return beers;
   }
 
-  @override
-  Future<BeerItem> loadBeerDetail(int id) async {
-    try {
-      final response = await httpClient.get('beers/$id');
-      if (response.statusCode == 200) {
-        final beer = BeerItem.fromJson(response.data);
-        return beer;
-      } else {
-        throw ParseError();
-      }
-    } on DioException catch (e) {
-      throw Exception(e);
-    }
+  Future<BeerItem> _getItem(
+    String path, {
+    CancelToken? cancelToken,
+  }) async {
+    final response = await ref.read(dioProvider).get<Map<String, Object?>>(
+          path,
+          cancelToken: cancelToken,
+          // TO-DO deserialize error message
+        );
+
+    return BeerItem.fromJson(response.data as Map<String, dynamic>);
   }
 }

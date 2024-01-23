@@ -11,7 +11,7 @@ class AppRouter {
       GoRoute(
         path: '/',
         builder: (BuildContext _, GoRouterState __) =>
-            BeerListPage(title: "Beer List"),
+            const BeerListPage(title: "Beer List"),
       ),
       GoRoute(
         path: '/details',
