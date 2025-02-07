@@ -1,7 +1,7 @@
 
-# Test exercise for Barkibu
+# Test exercise for NDA
 
-This is a Flutter project designed to show my view of creating app according to Barkibu test exersize requirements.
+This is a Flutter project designed to show my view of creating app according to NDA test exersize requirements.
 
 !!!Pls test app on Android or iOS simulator
 
